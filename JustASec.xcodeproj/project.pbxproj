@@ -43,6 +43,11 @@
 			path = JustASec;
 			sourceTree = "<group>";
 		};
+		B4BAC5BB2ED1845900F0D49E /* Reminder */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Reminder;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +68,7 @@
 		B47113AD2ECC5126009A7856 = {
 			isa = PBXGroup;
 			children = (
+				B4BAC5BB2ED1845900F0D49E /* Reminder */,
 				B45AFF4B2ED038880096FFE1 /* Repository */,
 				B47113E72ECC524B009A7856 /* GoogleService-Info.plist */,
 				B47113B82ECC5126009A7856 /* JustASec */,
@@ -96,6 +102,7 @@
 			fileSystemSynchronizedGroups = (
 				B45AFF4B2ED038880096FFE1 /* Repository */,
 				B47113B82ECC5126009A7856 /* JustASec */,
+				B4BAC5BB2ED1845900F0D49E /* Reminder */,
 			);
 			name = JustASec;
 			packageProductDependencies = (

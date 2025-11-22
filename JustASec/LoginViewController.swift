@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
 
     @IBAction func loginBtnPress(_ sender: Any) {
         // textfields empty
@@ -57,6 +56,28 @@ class LoginViewController: UIViewController {
             self?.view.window?.makeKeyAndVisible()
         }
 
+    }
+    
+    
+    @IBAction func btnForgotPasswordPress(_ sender: Any) {
+        // check if email entered
+        guard let email = txtFieldEmail.text, !email.isEmpty else {
+            showAlertMessage(title: "Validation", message: "Please enter your email")
+            return
+        }
+        
+        // Skicka password reset via UserRepository
+        UserRepository.sharedUserRepository.sendPasswordReset(email: email) { error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    // Visa felmeddelande
+                    self.showAlertMessage(title: "Error", message: error.localizedDescription)
+                } else {
+                    // Visa alert om mail skickat
+                    self.showAlertMessage(title: "Password Reset", message: "An email has been sent to \(email) with instructions to reset your password.")
+                }
+            }
+        }
     }
     
     /*

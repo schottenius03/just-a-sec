@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class UserRepository {
     // create instane of repository
@@ -31,6 +32,12 @@ class UserRepository {
             throw JASError.encodingError(encodingError)
         } catch {
             throw JASError.firestoreError(error)
+        }
+    }
+    
+    func sendPasswordReset(email: String, completion: @escaping (Error?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            completion(error)
         }
     }
 }

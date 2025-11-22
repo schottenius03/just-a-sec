@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 struct Snooze: Codable {
-    var id: String?        // Dokument-ID
+    @DocumentID var id: String?
     var name: String
     var minutes: Int
     

@@ -21,7 +21,7 @@ class SnoozeRepository {
     // instance
     init() {
         let db = Firestore.firestore()
-        self.usersCollection = db.collection("users")
+        self.usersCollection = db.collection("snoozes")
     }
     
     // add or update

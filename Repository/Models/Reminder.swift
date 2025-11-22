@@ -9,14 +9,8 @@ import Foundation
 import FirebaseFirestore
 
 struct Reminder: Codable {
-    var id: String?      // Dokument-ID
+    @DocumentID var id: String?
     var name: String
-    var time: String     // HH:mm
-
-    // Initializer
-    init(id: String? = nil, name: String, time: String) {
-        self.id = id
-        self.name = name
-        self.time = time
-    }
+    var time: String   // HH:mm
+    var amPm: Attribute   // AM - PM
 }
