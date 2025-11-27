@@ -1,45 +1,49 @@
 //
-//  ReminderTableViewController.swift
+//  SettingsTableViewController.swift
 //  JustASec
 //
-//  Created by Kailing Schottenius on 22/11/2025.
+//  Created by Kailing Schottenius on 27/11/2025.
 //
 
 import UIKit
-import FirebaseAuth
 
-class ReminderTableViewController: UITableViewController {
-    
-    let db = ReminderRepository.sharedReminderRepository
-    var reminder : [Reminder] = []
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem
+class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Hämta email som userId
-        guard let userEmail = Auth.auth().currentUser?.email else {
-            print("No user logged in or user has no email")
-            return
-        }
-        
-        db.getAllRemindersByUser(userId: userEmail) { returnedReminders in
-            DispatchQueue.main.async {
-                if returnedReminders.isEmpty {
-                    print("No reminders found for this user")
-                } else {
-                    for reminder in returnedReminders {
-                        print("\(reminder.name) \(reminder.time)")
-                    }
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @IBAction func btnLogoutPress(_ sender: Any) {
+        let alert = UIAlertController(title: "Sign out?", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+
+        // alt yes
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+            
+            // get storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as? LoginViewController {
+                
+                // unwind segue - root view controller
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first {
+                    window.rootViewController = loginVC
+                    window.makeKeyAndVisible()
                 }
             }
-        }
+        }))
+
+        // alt no
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
     }
+    
 
     // MARK: - Table view data source
 
@@ -79,7 +83,7 @@ class ReminderTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+        }    
     }
     */
 

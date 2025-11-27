@@ -297,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qc-JK-azv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="566" y="2098"/>
+            <point key="canvasLocation" x="454" y="2097"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="xno-QU-Po8">
@@ -320,14 +320,29 @@
         <!--Settings VC-->
         <scene sceneID="ifn-6R-a8b">
             <objects>
-                <tableViewController title="Settings VC" id="YTh-l9-HGj" sceneMemberID="viewController">
+                <tableViewController title="Settings VC" id="YTh-l9-HGj" customClass="SettingsTableViewController" customModule="JustASec" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="NCj-Iw-H75">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" distribution="equalCentering" id="am6-2T-sLU">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSV-cv-vRD">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="34"/>
+                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Logout"/>
+                                    <connections>
+                                        <action selector="btnLogoutPress:" destination="YTh-l9-HGj" eventType="touchUpInside" id="MsO-hl-OPk"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JWx-WO-1ca">
-                                <rect key="frame" x="0.0" y="50" width="375" height="51"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JWx-WO-1ca" id="vUR-4y-Fwy">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
@@ -344,7 +359,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ws7-Sz-woH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-306" y="1385"/>
+            <point key="canvasLocation" x="-394.39999999999998" y="1384.8575712143929"/>
         </scene>
         <!--Reminder VC-->
         <scene sceneID="CI5-3g-uZa">
@@ -362,7 +377,7 @@
                                     <rect key="frame" x="16" y="8" width="343" height="34"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a reminder" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aij-jN-Cby">
-                                            <rect key="frame" x="0.0" y="0.0" width="156.5" height="34"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="121.5" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="gzO-Jk-DUE"/>
                                             </constraints>
@@ -379,16 +394,12 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="343" id="qlq-XK-gY9"/>
-                                    </constraints>
                                 </stackView>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="6vI-UV-Hq3"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="aij-jN-Cby" firstAttribute="leading" secondItem="6vI-UV-Hq3" secondAttribute="leading" constant="16" id="9xh-SX-hzw"/>
-                                <constraint firstItem="6vI-UV-Hq3" firstAttribute="trailing" secondItem="aij-jN-Cby" secondAttribute="trailing" constant="202.5" id="Qxw-2K-ixo"/>
                                 <constraint firstItem="o5f-j2-XiC" firstAttribute="leading" secondItem="6vI-UV-Hq3" secondAttribute="leading" constant="16" id="hZE-mX-lVu"/>
                                 <constraint firstItem="aij-jN-Cby" firstAttribute="top" secondItem="6vI-UV-Hq3" secondAttribute="top" constant="8" id="pzv-oa-DSJ"/>
                                 <constraint firstItem="6vI-UV-Hq3" firstAttribute="trailing" secondItem="o5f-j2-XiC" secondAttribute="trailing" constant="16" id="z9O-WH-fFT"/>
@@ -420,7 +431,7 @@
                 </view>
                 <tabBarItem title="Reminder" selectedImage="clock.badge" catalog="system" id="h13-Zy-daf"/>
             </objects>
-            <point key="canvasLocation" x="566" y="1385"/>
+            <point key="canvasLocation" x="454" y="1385"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="CMw-Zp-iSJ">
@@ -483,6 +494,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
