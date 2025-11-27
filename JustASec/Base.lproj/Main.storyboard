@@ -265,6 +265,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Save">
                                             <color key="baseBackgroundColor" red="0.49117942409999998" green="0.70041707819999999" blue="0.87371093749999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnSavePress:" destination="qpF-mu-Sjo" eventType="touchUpInside" id="ade-du-iM1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -287,6 +290,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="qwP-uG-9Xo"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="selectedTime" destination="oQ7-JG-Biv" id="y2S-aM-NeJ"/>
+                        <outlet property="txtFieldTitle" destination="ORq-X9-NYp" id="ZaY-4P-DNk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qc-JK-azv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

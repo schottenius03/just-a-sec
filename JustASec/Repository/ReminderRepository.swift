@@ -17,33 +17,27 @@ class ReminderRepository {
     // Firestore
     init() {
         let db = Firestore.firestore()
-        self.usersCollection = db.collection("users")
+        self.usersCollection = db.collection("reminders") // root
     }
-    
-    // MARK:
     
     // MARK: Add or update reminder
     func addOrUpdate(reminder: Reminder, for userId: String) async throws {
         let collection = usersCollection.document(userId).collection("reminders")
         
+        let data: [String: Any] = [
+            "name": reminder.name,
+            "time": reminder.time
+        ]
+        
         if let reminderId = reminder.id {
-            // Uppdatera befintligt dokument
+            // update
             do {
-                try await collection.document(reminderId).setData([
-                    "name": reminder.name,
-                    "time": reminder.time,
-                    "amPm": reminder.amPm.rawValue // ← enum sparas som String
-                ], merge: true)
+                try await collection.document(reminderId).setData(data, merge: true)
             } catch {
                 throw JASError.reminderFirestoreError(error)
             }
         } else {
-            // Skapa nytt dokument
-            let data: [String: Any] = [
-                "name": reminder.name,
-                "time": reminder.time,
-                "amPm": reminder.amPm.rawValue
-            ]
+            // new
             do {
                 _ = try await collection.addDocument(data: data)
             } catch {
@@ -65,7 +59,6 @@ class ReminderRepository {
         }
     }
     
-    // MARK: Get all reminders for a specific user
     func getAllRemindersByUser(userId: String, completion: @escaping ([Reminder]) -> ()) {
         let remindersRef = usersCollection
             .document(userId)
@@ -74,13 +67,11 @@ class ReminderRepository {
         remindersRef.addSnapshotListener { snapshot, error in
             guard error == nil else {
                 print("Firebase listener error for reminders: \(error!.localizedDescription)")
-                // fail with empty array
                 completion([])
                 return
             }
             
             guard let snapshot = snapshot else {
-                print("No snapshot data available for reminders collection.")
                 completion([])
                 return
             }
@@ -98,25 +89,6 @@ class ReminderRepository {
             completion(decodedReminders)
         }
     }
-
-    
-    // MARK: get reminder by id
-    func getReminderById(userId: String, reminderId: String) async throws -> Reminder? {
-        let docRef = usersCollection
-            .document(userId)
-            .collection("reminders")
-            .document(reminderId)
-        
-        do {
-            // ref to sub Firestore
-            let reminder = try await docRef.getDocument(as: Reminder.self)
-            return reminder
-        } catch let decodingError as DecodingError {
-            print("Error decoding reminder: \(decodingError.localizedDescription)")
-            throw JASError.encodingError(decodingError)
-        } catch {
-            print("Error fetching reminder: \(error.localizedDescription)")
-            throw JASError.reminderFirestoreError(error)
-        }
-    }
 }
+
+

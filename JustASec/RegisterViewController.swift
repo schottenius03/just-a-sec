@@ -85,7 +85,6 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
     @IBAction func loginInsteadbtn(_ sender: Any) {
         // close pop up 
         self.dismiss(animated: true, completion: nil)
