@@ -15,6 +15,12 @@ class ReminderNewViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func btnHomePress(_ sender: Any) {
+        // close pop up
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 
     /*
     // MARK: - Navigation
