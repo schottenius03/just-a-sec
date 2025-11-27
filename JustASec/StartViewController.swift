@@ -11,7 +11,7 @@ class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // delay 3 sec
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             // call func
