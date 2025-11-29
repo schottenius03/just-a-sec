@@ -10,6 +10,7 @@ import UIKit
 class ReminderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblReminder: UILabel!
+    @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var switchIsActive: UISwitch!
     
     var switchChangedAction: ((Bool) -> Void)? // closure change visible

@@ -54,7 +54,7 @@ class ReminderTableViewController: UITableViewController {
         return reminder.count
     }
     
-    // data from Firestore
+    // MARK: data from Firestore
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // re-use cell from storyboard
@@ -65,6 +65,7 @@ class ReminderTableViewController: UITableViewController {
         
         // set values
         cell.lblReminder.text = reminderItem.name
+        cell.lblTime.text = reminderItem.time
         cell.switchIsActive.isOn = reminderItem.isActive
         
         // action in switch
