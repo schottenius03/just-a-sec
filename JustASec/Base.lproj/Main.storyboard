@@ -229,7 +229,7 @@
         <!--ReminderNew VC-->
         <scene sceneID="2o9-ZS-ctw">
             <objects>
-                <viewController title="ReminderNew VC" id="qpF-mu-Sjo" customClass="ReminderNewViewController" customModule="JustASec" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReminderNewVC" title="ReminderNew VC" id="qpF-mu-Sjo" customClass="ReminderNewViewController" customModule="JustASec" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q0S-Pv-zet">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

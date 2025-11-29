@@ -19,11 +19,6 @@ enum JASError: Error, LocalizedError {
     case reminderEncodingError(Error)
     case reminderFirestoreError(Error)
     
-    // snooze errors
-    case snoozeIdNotFound
-    case snoozeEncodingError(Error)
-    case snoozeFirestoreError(Error)
-    
     // description
     var errorDescription: String? {
         switch self {
@@ -43,14 +38,6 @@ enum JASError: Error, LocalizedError {
             return "Failed to encode Reminder object: \(error.localizedDescription)"
         case .reminderFirestoreError(let error):
             return "Firestore operation failed for Reminder: \(error.localizedDescription)"
-        
-        // Snooze
-        case .snoozeIdNotFound:
-            return "Snooze ID not found"
-        case .snoozeEncodingError(let error):
-            return "Failed to encode Snooze object: \(error.localizedDescription)"
-        case .snoozeFirestoreError(let error):
-            return "Firestore operation failed for Snooze: \(error.localizedDescription)"
         }
     }
 }

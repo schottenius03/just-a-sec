@@ -13,12 +13,23 @@ class ReminderNewViewController: UIViewController {
     
     @IBOutlet weak var txtFieldTitle: UITextField!
     @IBOutlet weak var selectedTime: UIDatePicker!
+    var reminderToEdit: Reminder?   // optional new or edit
     
     // // instance of reminderResp
     let db = ReminderRepository.sharedReminderRepository
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // editing
+        if let reminder = reminderToEdit {
+            txtFieldTitle.text = reminder.name
+            let formatter = DateFormatter()
+            formatter.dateFormat = "hh:mm a"
+            if let date = formatter.date(from: reminder.time) {
+                selectedTime.date = date
+            }
+        }
     }
     
     @IBAction func btnHomePress(_ sender: Any) {
@@ -50,21 +61,17 @@ class ReminderNewViewController: UIViewController {
         }
         
         // new reminder
-        let newReminder = Reminder(id: nil, name: name, time: timeString)
+        let reminder = Reminder(
+            id: reminderToEdit?.id, // keep w edit
+            name: name,
+            time: timeString,
+            isActive: true // always activate
+        )
         
         // Firestore
         Task {
-            do {
-                try await db.addOrUpdate(reminder: newReminder, for: currentUserEmail)
-                
-                // alert + dismiss
-                showAlertMessage(title: "Success", message: "Reminder created!") {
-                    self.dismiss(animated: true, completion: nil)
-                }
-                
-            } catch {
-                showAlertMessage(title: "Error", message: "Could not save reminder: \(error.localizedDescription)")
-            }
+            try? await db.addOrUpdate(reminder: reminder, for: currentUserEmail)
+            self.dismiss(animated: true, completion: nil)
         }
     }
 

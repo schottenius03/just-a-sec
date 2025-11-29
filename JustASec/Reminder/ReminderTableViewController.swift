@@ -44,7 +44,7 @@ class ReminderTableViewController: UITableViewController {
         }
     }
     
-    // num of sec for table
+    // num of sections for table
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -89,26 +89,53 @@ class ReminderTableViewController: UITableViewController {
         return cell
     }
     
-    // swipe del from table
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-            let reminderToDelete = reminder[indexPath.row]
-            
-            // info user n reminder on the move
-            guard let reminderId = reminderToDelete.id,
-                  let userEmail = Auth.auth().currentUser?.email else { return }
-            
-            // del
-            Task {
-                try? await db.deleteReminder(for: userEmail, reminderId: reminderId)
+    // swipe buttons
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // Edit
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (_, _, completionHandler) in
+            guard let self = self else { return }
+
+            let reminderToEdit = self.reminder[indexPath.row]
+
+            if let newVC = self.storyboard?.instantiateViewController(withIdentifier: "ReminderNewVC") as? ReminderNewViewController {
+                newVC.reminderToEdit = reminderToEdit      // skicka med reminder
+                newVC.modalPresentationStyle = .fullScreen
+                self.present(newVC, animated: true)
             }
-            
-            // remove from table
-            reminder.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            completionHandler(true)
         }
+
+        // delete
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
+            guard let self = self else { return }
+
+            let reminderToDelete = self.reminder[indexPath.row]
+
+            guard let reminderId = reminderToDelete.id,
+                  let userEmail = Auth.auth().currentUser?.email else {
+                completionHandler(false)
+                return
+            }
+
+            // delete i Firestore
+            Task {
+                try? await self.db.deleteReminder(for: userEmail, reminderId: reminderId)
+            }
+
+            // upd table
+            self.reminder.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            completionHandler(true)
+        }
+
+        editAction.backgroundColor = .systemBlue
+
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
+
     
     // MARK: - Table view data source
 
