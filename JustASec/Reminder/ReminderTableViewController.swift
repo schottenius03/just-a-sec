@@ -22,36 +22,77 @@ class ReminderTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Hämta email som userId
+        // auto height adp content
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
+        
+        // get logged in user
         guard let userEmail = Auth.auth().currentUser?.email else {
-            print("No user logged in or user has no email")
+            print("No user logged in.")
             return
         }
         
+        // get reminders for the user
         db.getAllRemindersByUser(userId: userEmail) { returnedReminders in
             DispatchQueue.main.async {
-                if returnedReminders.isEmpty {
-                    print("No reminders found for this user")
-                } else {
-                    for reminder in returnedReminders {
-                        print("\(reminder.name) \(reminder.time)")
-                    }
-                }
+                // save to array
+                self.reminder = returnedReminders
+                
+                // reload table
+                self.tableView.reloadData()
             }
         }
     }
-
-    // MARK: - Table view data source
-
+    
+    // num of sec for table
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
+    // num row for table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return reminder.count
     }
+    
+    // data from Firestore
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // re-use cell from storyboard
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath) as! ReminderTableViewCell
+        
+        // get reminder
+        let reminderItem = reminder[indexPath.row]
+        
+        // set title
+        cell.lblReminder.text = reminderItem.name
+        
+        return cell
+    }
+    
+    
+    // swipe del from table
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let reminderToDelete = reminder[indexPath.row]
+            
+            // info user n reminder on the move
+            guard let reminderId = reminderToDelete.id,
+                  let userEmail = Auth.auth().currentUser?.email else { return }
+            
+            // del
+            Task {
+                try? await db.deleteReminder(for: userEmail, reminderId: reminderId)
+            }
+            
+            // remove from table
+            reminder.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    
+    // MARK: - Table view data source
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

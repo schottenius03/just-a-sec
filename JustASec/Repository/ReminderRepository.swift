@@ -20,15 +20,17 @@ class ReminderRepository {
         self.usersCollection = db.collection("reminders") // root
     }
     
-    // MARK: Add or update reminder
+    // Add or update reminder
     func addOrUpdate(reminder: Reminder, for userId: String) async throws {
         let collection = usersCollection.document(userId).collection("reminders")
         
+        // data to store in Firestore
         let data: [String: Any] = [
             "name": reminder.name,
             "time": reminder.time
         ]
         
+        // check selected reminder 
         if let reminderId = reminder.id {
             // update
             do {

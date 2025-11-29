@@ -8,7 +8,9 @@
 import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var lblReminder: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -406,13 +406,30 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="zce-fv-Hcp">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderCell" id="zce-fv-Hcp" customClass="ReminderTableViewCell" customModule="JustASec" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="101" width="375" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zce-fv-Hcp" id="5qg-au-lpj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9J-4b-LqG">
+                                            <rect key="frame" x="16" y="15" width="343" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="n9J-4b-LqG" secondAttribute="trailing" constant="16" id="1Bm-SB-AdN"/>
+                                        <constraint firstItem="n9J-4b-LqG" firstAttribute="leading" secondItem="5qg-au-lpj" secondAttribute="leading" constant="16" id="dSh-x3-pu6"/>
+                                        <constraint firstItem="n9J-4b-LqG" firstAttribute="top" secondItem="5qg-au-lpj" secondAttribute="top" constant="15" id="pGz-CN-etz"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="ReminderCell"/>
+                                <connections>
+                                    <outlet property="lblReminder" destination="n9J-4b-LqG" id="abw-3J-R5D"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -431,7 +448,7 @@
                 </view>
                 <tabBarItem title="Reminder" selectedImage="clock.badge" catalog="system" id="h13-Zy-daf"/>
             </objects>
-            <point key="canvasLocation" x="454" y="1385"/>
+            <point key="canvasLocation" x="453.60000000000002" y="1384.8575712143929"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="CMw-Zp-iSJ">

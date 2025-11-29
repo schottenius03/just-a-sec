@@ -8,22 +8,23 @@
 import Foundation
 
 enum JASError: Error, LocalizedError {
-    // MARK: user errors
+    
+    // user errors
     case userIdNotFound
     case firestoreError(Error)
     case encodingError(Error)
     
-    // MARK: Reminder errors
+    // reminder errors
     case reminderIdNotFound
     case reminderEncodingError(Error)
     case reminderFirestoreError(Error)
     
-    // MARK: Snooze errors
+    // snooze errors
     case snoozeIdNotFound
     case snoozeEncodingError(Error)
     case snoozeFirestoreError(Error)
     
-    // MARK: description
+    // description
     var errorDescription: String? {
         switch self {
             
