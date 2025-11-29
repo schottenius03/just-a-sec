@@ -63,12 +63,30 @@ class ReminderTableViewController: UITableViewController {
         // get reminder
         let reminderItem = reminder[indexPath.row]
         
-        // set title
+        // set values
         cell.lblReminder.text = reminderItem.name
+        cell.switchIsActive.isOn = reminderItem.isActive
+        
+        // action in switch
+        cell.switchChangedAction = { [weak self] isOn in
+            guard let self = self else { return }
+            
+            var updatedReminder = reminderItem
+            updatedReminder.isActive = isOn // upd to switch value
+            
+            guard let userEmail = Auth.auth().currentUser?.email else { return }
+            
+            Task {
+                
+                try? await self.db.addOrUpdate(reminder: updatedReminder, for: userEmail)
+            }
+            
+            // upd array
+            self.reminder[indexPath.row] = updatedReminder
+        }
         
         return cell
     }
-    
     
     // swipe del from table
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -90,7 +108,6 @@ class ReminderTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    
     
     // MARK: - Table view data source
 

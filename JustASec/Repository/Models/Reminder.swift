@@ -12,4 +12,5 @@ struct Reminder: Codable {
     @DocumentID var id: String?
     var name: String
     var time: String // inc AM/PM
+    var isActive: Bool = true
 }

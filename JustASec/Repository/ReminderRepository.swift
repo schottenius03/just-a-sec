@@ -17,7 +17,7 @@ class ReminderRepository {
     // Firestore
     init() {
         let db = Firestore.firestore()
-        self.usersCollection = db.collection("reminders") // root
+        self.usersCollection = db.collection("users") // root
     }
     
     // Add or update reminder
@@ -27,7 +27,8 @@ class ReminderRepository {
         // data to store in Firestore
         let data: [String: Any] = [
             "name": reminder.name,
-            "time": reminder.time
+            "time": reminder.time,
+            "isActive": reminder.isActive
         ]
         
         // check selected reminder 
