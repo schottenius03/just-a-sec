@@ -656,6 +656,12 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-AA-ZyU">
+                                <rect key="frame" x="213" y="532" width="67" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="alarm"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="r6k-ah-EuS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -684,6 +690,78 @@
             </objects>
             <point key="canvasLocation" x="17" y="2140"/>
         </scene>
+        <!--Alarm VC-->
+        <scene sceneID="d0n-gK-5GJ">
+            <objects>
+                <viewController storyboardIdentifier="AlarmVC" title="Alarm VC" id="OAL-cE-hxV" customClass="AlarmViewController" customModule="JustASec" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xt9-FC-LQi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dgu-M6-bpJ">
+                                <rect key="frame" x="113" y="289" width="148.5" height="89"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rem name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wJ-nA-Be2">
+                                        <rect key="frame" x="0.0" y="0.0" width="148.5" height="34.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9d-7k-t1t">
+                                        <rect key="frame" x="0.0" y="54.5" width="148.5" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Snooze">
+                                            <color key="baseBackgroundColor" systemColor="systemOrangeColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnSnooze:" destination="OAL-cE-hxV" eventType="touchUpInside" id="7rs-uS-rbx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nE-CI-IlM">
+                                <rect key="frame" x="125" y="587.5" width="125" height="34.5"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Stop">
+                                    <color key="baseBackgroundColor" systemColor="secondaryLabelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnStop:" destination="OAL-cE-hxV" eventType="touchUpInside" id="9kj-UZ-VMy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZt-Vu-OgJ">
+                                <rect key="frame" x="58" y="106" width="258" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hGo-em-8dM"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hGo-em-8dM" firstAttribute="trailing" secondItem="dgu-M6-bpJ" secondAttribute="trailing" constant="113.5" id="06G-bz-k7Q"/>
+                            <constraint firstItem="0nE-CI-IlM" firstAttribute="leading" secondItem="hGo-em-8dM" secondAttribute="leading" constant="125" id="06b-bs-M5C"/>
+                            <constraint firstItem="hGo-em-8dM" firstAttribute="trailing" secondItem="pZt-Vu-OgJ" secondAttribute="trailing" constant="59" id="6ST-e1-W69"/>
+                            <constraint firstItem="pZt-Vu-OgJ" firstAttribute="leading" secondItem="hGo-em-8dM" secondAttribute="leading" constant="58" id="7rb-zI-RC0"/>
+                            <constraint firstItem="hGo-em-8dM" firstAttribute="trailing" secondItem="0nE-CI-IlM" secondAttribute="trailing" constant="125" id="Tmt-QM-e9o"/>
+                            <constraint firstItem="hGo-em-8dM" firstAttribute="bottom" secondItem="0nE-CI-IlM" secondAttribute="bottom" constant="45" id="c0j-5J-eof"/>
+                            <constraint firstItem="dgu-M6-bpJ" firstAttribute="leading" secondItem="hGo-em-8dM" secondAttribute="leading" constant="113" id="g2D-tK-1hp"/>
+                            <constraint firstItem="pZt-Vu-OgJ" firstAttribute="top" secondItem="hGo-em-8dM" secondAttribute="top" constant="86" id="hkh-dC-JKt"/>
+                            <constraint firstItem="0nE-CI-IlM" firstAttribute="top" secondItem="dgu-M6-bpJ" secondAttribute="bottom" constant="209.5" id="uQf-hk-g9b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cKT-7f-54F"/>
+                    <connections>
+                        <outlet property="btnSnooze" destination="s9d-7k-t1t" id="Lsw-OW-iqw"/>
+                        <outlet property="btnStop" destination="0nE-CI-IlM" id="n98-wt-sdR"/>
+                        <outlet property="lblClock" destination="pZt-Vu-OgJ" id="pcZ-SR-V4u"/>
+                        <outlet property="lblReminderTitle" destination="0wJ-nA-Be2" id="EEa-bx-jrC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oit-CC-11A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="748" y="2140"/>
+        </scene>
     </scenes>
     <resources>
         <image name="clock.badge" catalog="system" width="128" height="128"/>
@@ -693,14 +771,23 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="speaker.zzz" catalog="system" width="128" height="83"/>
         <image name="start scene" width="646" height="1154"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

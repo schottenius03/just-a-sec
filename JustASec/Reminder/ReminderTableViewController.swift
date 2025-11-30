@@ -11,18 +11,15 @@ import FirebaseAuth
 class ReminderTableViewController: UITableViewController {
     
     let db = ReminderRepository.sharedReminderRepository
-    var reminder : [Reminder] = []
+    var reminder: [Reminder] = []
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem
-
+    var alarmTimer: Timer? // timer to trigger alarm every minute
+    var reminderItem: Reminder? // reminder in action
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // auto height adp content
+        // auto height adapt content
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         
@@ -40,9 +37,75 @@ class ReminderTableViewController: UITableViewController {
                 
                 // reload table
                 self.tableView.reloadData()
+                
+                // start timer trigger after reminders are loaded
+                self.startAlarmTimer()
             }
         }
     }
+    
+    // start timer that checks when alarm should go
+    func startAlarmTimer() {
+        // calculate seconds to next minute
+        let calendar = Calendar.current
+        let nextMinute = calendar.nextDate(after: Date(),
+                                           matching: DateComponents(second: 0),
+                                           matchingPolicy: .nextTime)!
+        let interval = nextMinute.timeIntervalSinceNow
+        
+        // timer that runs check when minute changes
+        alarmTimer = Timer.scheduledTimer(timeInterval: interval,
+                                          target: self,
+                                          selector: #selector(startMinuteAlarmTimer),
+                                          userInfo: nil,
+                                          repeats: false)
+        
+        // run check immediately when view appears
+        checkAlarms()
+    }
+    
+    // start timer that then runs check every minute
+    @objc func startMinuteAlarmTimer() {
+        // run check immediately
+        checkAlarms()
+        
+        // create timer that runs every minute
+        alarmTimer = Timer.scheduledTimer(timeInterval: 60,
+                                          target: self,
+                                          selector: #selector(checkAlarms),
+                                          userInfo: nil,
+                                          repeats: true)
+    }
+    
+    // loop through reminders and trigger alarm if time matches
+    @objc func checkAlarms() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a" // same format as saved in Firestore
+        let currentTime = formatter.string(from: Date())
+        
+        for r in reminder {
+            if r.isActive && r.time == currentTime {
+                
+                // Alarm VC
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                if let alarmVC = storyboard.instantiateViewController(withIdentifier: "AlarmVC") as? AlarmViewController {
+                    alarmVC.reminderItem = r // send reminder object to alarm VC
+                    alarmVC.modalPresentationStyle = .fullScreen
+                    self.present(alarmVC, animated: true)
+                }
+                break // only trigger once per minute
+            }
+        }
+    }
+    
+    // stop timer when reminder view close
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        alarmTimer?.invalidate()
+        alarmTimer = nil
+    }
+
     
     // num of sections for table
     override func numberOfSections(in tableView: UITableView) -> Int {

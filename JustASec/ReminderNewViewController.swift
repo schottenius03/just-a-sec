@@ -33,7 +33,7 @@ class ReminderNewViewController: UIViewController {
     }
     
     @IBAction func btnHomePress(_ sender: Any) {
-        // close
+        // close popup
         self.dismiss(animated: true, completion: nil)
     }
     
