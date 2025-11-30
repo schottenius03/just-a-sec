@@ -1,39 +1,40 @@
 //
-//  ReminderNewViewController.swift
-//  JustASec4
+//  SnoozeNewViewController.swift
+//  JustASec
 //
-//  Created by Kailing Schottenius on 18/11/2025.
+//  Created by Kailing Schottenius on 30/11/2025.
 //
-
 
 import UIKit
 import FirebaseAuth
 
-class ReminderNewViewController: UIViewController {
+class SnoozeNewViewController: UIViewController {
     
     @IBOutlet weak var txtFieldTitle: UITextField!
     @IBOutlet weak var selectedTime: UIDatePicker!
-    var reminderToEdit: Reminder?   // optional new or edit
+    var snoozeToEdit: Snooze?   // optional new or edit
     
-    // // instance of reminderResp
-    let db = ReminderRepository.sharedReminderRepository
+    // // instance of snoozeResp
+    let db = SnoozeRepository.sharedSnoozeRepository
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // editing
-        if let reminder = reminderToEdit {
-            txtFieldTitle.text = reminder.name
+        if let snooze = snoozeToEdit {
+            txtFieldTitle.text = snooze.name
             let formatter = DateFormatter()
             formatter.dateFormat = "hh:mm a"
-            if let date = formatter.date(from: reminder.time) {
+            if let date = formatter.date(from: snooze.time) {
                 selectedTime.date = date
             }
         }
     }
     
+    
+    
     @IBAction func btnHomePress(_ sender: Any) {
-        // close
+        // close popup
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -60,21 +61,20 @@ class ReminderNewViewController: UIViewController {
             return
         }
         
-        // new reminder
-        let reminder = Reminder(
-            id: reminderToEdit?.id, // keep w edit
+        // new snooze
+        let snooze = Snooze(
+            id: snoozeToEdit?.id, // keep w edit
             name: name,
-            time: timeString,
-            isActive: true // always activate
+            time: timeString
         )
         
         // Firestore
         Task {
-            try? await db.addOrUpdate(reminder: reminder, for: currentUserEmail)
+            try? await db.addOrUpdate(snooze: snooze, for: currentUserEmail)
             self.dismiss(animated: true, completion: nil)
         }
     }
-
+    
 
     /*
     // MARK: - Navigation
