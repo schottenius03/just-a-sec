@@ -656,12 +656,6 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-AA-ZyU">
-                                <rect key="frame" x="213" y="532" width="67" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="alarm"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="r6k-ah-EuS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
